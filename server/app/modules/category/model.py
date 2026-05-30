@@ -11,5 +11,7 @@ class Category(SQLModel, table=True):
     name: str = Field(unique=True, index=True, min_length=3, max_length=40)
     description: str | None = Field(default=None, min_length=3, max_length=255)
 
-    products: list["Product"] = Relationship(back_populates="categories", link_model=ProductCategory)
-    category_links: list["ProductCategory"] = Relationship(back_populates="category_link")
+    products: list["Product"] = Relationship(
+        back_populates="categories", link_model=ProductCategory
+    )
+    category_links: list["ProductCategory"] = Relationship(back_populates="category")
