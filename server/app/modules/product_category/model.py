@@ -13,4 +13,4 @@ class ProductCategory(SQLModel, table=True):
     category_id: int = Field(primary_key=True, foreign_key="category.id")
 
     product: "Product" = Relationship(back_populates="product_links")
-    category: "Category" = Relationship(back_populates="category_link")
+    category: "Category" = Relationship(back_populates="category_links")
