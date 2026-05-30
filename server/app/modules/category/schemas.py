@@ -25,6 +25,6 @@ class CategoryPaginated(BaseModel):
 
 
 class CategoryFilters(BaseModel):
-    name: str = Field(min_length=3, max_length=80)
+    name: str | None = Field(default=None, min_length=3, max_length=80)
     offset: int = 0
     limit: int = 20
