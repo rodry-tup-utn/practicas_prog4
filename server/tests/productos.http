@@ -1,0 +1,63 @@
+### ────────────────────────────
+### PRODUCTOS
+### ────────────────────────────
+
+### Listar productos (con filtros opcionales)
+GET http://localhost:8000/products/?limit=5
+
+### Listar productos activos
+GET http://localhost:8000/products/?active=true&limit=10
+
+### Obtener producto por ID
+GET http://localhost:8000/products/1
+
+### Crear producto
+POST http://localhost:8000/products/
+Content-Type: application/json
+
+{
+  "name": "Fanta Pomelo 2.5 Lts",
+  "description": "Fanta Pomelo Clásica grande",
+  "base_price": 3500.00,
+  "category_ids": [1]
+}
+
+### Actualizar producto (PUT)
+PUT http://localhost:8000/products/3
+Content-Type: application/json
+
+{
+  "name": "Fanta Pomelo 2.5 lts"
+}
+
+### Eliminar producto
+DELETE http://localhost:8000/products/1
+
+
+### CATEGORÍAS
+
+### Listar categorías
+GET http://localhost:8000/categories/?limit=10
+
+### Obtener categoría por ID
+GET http://localhost:8000/categories/1
+
+### Crear categoría
+POST http://localhost:8000/categories/
+Content-Type: application/json
+
+{
+  "name": "Electrónica",
+  "description": "Productos electrónicos y gadgets"
+}
+
+### Actualizar categoría
+PATCH http://localhost:8000/categories/1
+Content-Type: application/json
+
+{
+  "name": "Electrónica y Tecnología"
+}
+
+### Eliminar categoría
+DELETE http://localhost:8000/categories/1
