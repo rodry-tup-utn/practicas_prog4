@@ -1,8 +1,8 @@
-from sqlmodel import SQLModel, Field
 from decimal import Decimal
+from pydantic import Field, BaseModel, ConfigDict
 
 
-class ProductoCreate(SQLModel):
+class ProductCreate(BaseModel):
     name: str = Field(min_length=3, max_length=80)
     description: str | None = Field(default=None, min_length=3, max_length=255)
     base_price: Decimal = Field(gt=0)
@@ -10,36 +10,43 @@ class ProductoCreate(SQLModel):
     category_ids: list[int] = []
 
 
-class ProductoUpdate(SQLModel):
+class ProductUpdate(BaseModel):
     name: str | None = None
     description: str | None = None
     base_price: Decimal | None = Field(default=None, gt=0)
-    active: bool | None = None
+    available: bool | None = None
 
 
-class ProductoRead(SQLModel):
+class ProductRead(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
     id: int
     name: str
     description: str | None
     base_price: Decimal
+    available: bool
 
 
-class UpdateActive(SQLModel):
-    active: bool
+class ProductPaginated(BaseModel):
+    items: list[ProductRead]
+    total: int
 
 
-class CategoriaBasicRead(SQLModel):
+class CategoriaBasicRead(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
     id: int
     name: str
 
 
-class ProductDetail(ProductoRead):
+class ProductDetail(ProductRead):
     categories: list[CategoriaBasicRead]
 
 
-class ProductFilters(SQLModel):
+class ProductFilters(BaseModel):
     name: str | None = Field(default=None, min_length=3, max_length=80)
     min_price: Decimal | None = Field(default=None, ge=0)
     max_price: Decimal | None = Field(default=None, ge=0)
     active: bool | None = None
     category_id: int | None = None
+    offset: int = 0
+    limit: int = 10
+    available: bool | None = None
